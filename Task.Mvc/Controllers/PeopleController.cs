@@ -2,7 +2,7 @@
 
 namespace Task.Mvc.Controllers;
 
-public class UserController : Controller
+public class PeopleController : Controller
 {
     public IActionResult Index()
     {
