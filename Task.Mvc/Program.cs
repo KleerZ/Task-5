@@ -1,4 +1,5 @@
 using Task.Application;
+using Task.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 
 builder.Services.AddApplication();
+builder.Services.AddPersistence(builder.Configuration);
 
 var app = builder.Build();
 
