@@ -30,3 +30,12 @@ body {
   height: 100%;
   margin-right: 30px;
 }
+
+#tableContainer{
+  max-height: 520px;
+}
+
+.people-table-head{
+  position: sticky;
+  top: 0;
+}
