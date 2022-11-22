@@ -20,12 +20,14 @@ public class PeopleController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> Index(string country, int elementsOnPage, [FromBody] int seed)
+    public async Task<IActionResult> Index(string country, int elementsOnPage, 
+        double errorCount, [FromBody] int seed)
     {
         var query = new GetPeopleListQuery
         {
             Country = country, Seed = seed,
-            ElementsCountOnLoad = elementsOnPage
+            ElementsCountOnLoad = elementsOnPage,
+            ErrorsCount = errorCount
         };
         var peoples =  await _mediator.Send(query);
 

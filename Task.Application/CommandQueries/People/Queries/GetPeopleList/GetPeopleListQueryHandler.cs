@@ -17,6 +17,8 @@ public class GetPeopleListQueryHandler : IRequestHandler<GetPeopleListQuery, Lis
     public async Task<List<PersonDto>> Handle(GetPeopleListQuery request,
         CancellationToken cancellationToken)
     {
+        var errorGenerator = new ErrorGenerator(request.Country, request.Seed, request.ErrorsCount);
+        
         var elementsOnPage = request.ElementsCountOnLoad ?? 10;
         var faker = new Faker(request.Country);
         var people = new List<PersonDto>();
@@ -25,16 +27,18 @@ public class GetPeopleListQueryHandler : IRequestHandler<GetPeopleListQuery, Lis
         {
             faker.Random = new Randomizer(seed);
 
-            var firstName = faker.Name.FirstName();
-            var lastName = faker.Name.LastName();
-            var phone = new PhoneGenerator(faker).Generate(request.Country, seed);
-            var address = new AddressGenerator(_context, faker, seed).Generate(request.Country);
+            var fullName = new FullNameGenerator(faker).Generate(seed);
+            var phone = new PhoneGenerator(faker).Generate(request.Country);
+            var address = await new AddressGenerator(_context, faker, seed).Generate(request.Country);
+            
+            var lines = errorGenerator
+                .Generate(address, phone, fullName);
 
             var person = new PersonDto
             {
-                Address = await address,
-                Phone = phone,
-                FullName = $"{firstName} {lastName}"
+                Address = lines[0],
+                Phone = lines[1],
+                FullName = lines[2]
             };
             
             people.Add(person);

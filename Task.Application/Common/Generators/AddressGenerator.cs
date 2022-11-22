@@ -19,10 +19,10 @@ public class AddressGenerator
         _random = new Random(_seed);
     }
 
-    public async Task<string> Generate(string country)
+    public async Task<string> Generate(string countryName)
     {
         var countryId = (await _context.Countries
-            .FirstOrDefaultAsync(c => c.Name == country))!.Id;
+            .FirstOrDefaultAsync(c => c.Name == countryName))!.Id;
 
         _faker.Random = new Randomizer(_seed);
 
@@ -52,9 +52,13 @@ public class AddressGenerator
                 var village = _context.Villages
                     .Where(c => c.Country.Id == countryId)
                     .ToArray()
+                    .Select(c => c.Name)
                     .Where((_, i) => i == index)
-                    .First().Name;
-            
+                    .First();
+
+                if (village[0] == ',')
+                    village = village.Substring(1, village.Length);
+
                 return $"{village}, {street} {building}";
             }
             default: return string.Empty;

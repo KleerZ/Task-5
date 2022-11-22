@@ -10,20 +10,17 @@ randomBtn.addEventListener("click", async function () {
     counter = 1
     loadCounter = 1
 
-    let response = await sendData(20);
+    let response = await sendData(20, 0);
     setDataToTable(response);
-
-    await sendData()
 })
 
 seedInput.addEventListener("change", async function () {
     seed = Number(seedInput.value)
-    console.log(seed)
     tableBody.innerHTML = ''
     counter = 1
     loadCounter = 1
 
-    let response = await sendData(20);
+    let response = await sendData(20, 0);
     setDataToTable(response);
 })
 
@@ -34,6 +31,6 @@ selectCountry.addEventListener("click", async function (){
     counter = 1
     loadCounter = 1
     
-    let response = await sendData(20)
+    let response = await sendData(20, 0)
     setDataToTable(response)
 })
