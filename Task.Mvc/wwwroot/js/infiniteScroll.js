@@ -3,7 +3,7 @@ let errorInput = document.getElementById("error-input")
 let errorRange = document.getElementById("error-range")
 let seedInput = document.getElementById("seed")
 let selectCountry = document.getElementById("select-country")
-let seed = 0
+let seed = +Number(0)
 let counter = 1
 let loadCounter = 1
 let tableBody = document.getElementById("tbody")
@@ -14,13 +14,12 @@ tableContainer.addEventListener("scroll", async function () {
 })
 
 async function sendData(elementsOnPage, errorCount){
-    seed += 10
     let country = selectCountry.options[selectCountry.selectedIndex].value
     let route = `People/Index?country=${country}&elementsOnPage=${elementsOnPage}&errorCount=${errorCount}`
 
     return await fetch(route, {
         method: "POST",
-        body: JSON.stringify(seed + 10),
+        body: JSON.stringify(seed),
         headers: {
             "Content-Type": "application/json"
         }
@@ -58,16 +57,16 @@ async function checkPosition() {
     const height = tableBody.offsetHeight
     const screenHeight = tableContainer.offsetHeight
     const scrolled = tableContainer.scrollTop
-    const threshold = height - screenHeight / 3
+    const threshold = height - screenHeight / 2
     const position = scrolled + screenHeight
 
     if (position >= threshold && loadCounter !== counter) {
         loadCounter = counter;
 
-        let response = await sendData(10, 0);
+        seed += Number(10)
+        let response = await sendData(10, errorInput.value);
         setDataToTable(response);
-
+        
         loadCounter = counter;
-        seedInput.value = seed;
     }
 }

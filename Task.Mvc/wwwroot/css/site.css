@@ -13,10 +13,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-}
-
 .control-div{
   display: flex;
   width: 100%;
@@ -32,7 +28,7 @@ body {
 }
 
 #tableContainer{
-  max-height: 520px;
+  max-height: 530px;
 }
 
 .people-table-head{

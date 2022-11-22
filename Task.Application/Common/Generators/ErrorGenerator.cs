@@ -33,7 +33,7 @@ public class ErrorGenerator
             lines[changeLineIndex] = operation(lines[changeLineIndex]);
         }
 
-        if (_random.Next(1, 101) < probability * 100)
+        if (_random.Next(1, 101) <= probability * 100) 
         {
             changeLineIndex = _random.Next(0, lines.Length);
 
@@ -46,7 +46,7 @@ public class ErrorGenerator
 
     private string RemoveSymbolOnRandomPosition(string line)
     {
-        if (line.Length < 5) return line;
+        if (line.Length <= 10) return line;
 
         var symbolIndex = _random.Next(line.Length);
         return line.Remove(symbolIndex, 1);
@@ -54,7 +54,7 @@ public class ErrorGenerator
 
     private string InsertSymbolOnRandomPosition(string line)
     {
-        if (line.Length < 5) return line;
+        if (line.Length <= 10) return line;
 
         var data = _random.Next(1, 3) == 1
             ? RegionAlphabets.GetAlphabet(_country)
@@ -68,7 +68,7 @@ public class ErrorGenerator
 
     private string ReplaceSymbols(string line)
     {
-        if (line.Length < 5) return line;
+        if (line.Length <= 10) return line;
 
         var stringBuilder = new StringBuilder(line);
         var symbolPosition = _random.Next(line.Length - 2);
@@ -84,7 +84,8 @@ public class ErrorGenerator
 
     private int GetErrorsCount(double errors)
     {
-        var errorsCount = errors.ToString().Split(',')[0];
+        var errorsString = errors.ToString();
+        var errorsCount = errorsString.Split('.',',')[0];
         return Convert.ToInt32(errorsCount);
     }
 
@@ -99,6 +100,8 @@ public class ErrorGenerator
             probability = Convert.ToInt32(error.Split('.', ',')[1]) * 10;
         else if (error.Split('.', ',')[1].Length >= 2)
             probability = Convert.ToInt32(error.Split('.', ',')[1]);
+        else if(error.Split('.', ',').Length > 99)
+            probability = Convert.ToInt32(error);
 
         return probability;
     }
