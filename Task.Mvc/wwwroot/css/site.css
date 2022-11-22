@@ -39,3 +39,9 @@ body {
   position: sticky;
   top: 0;
 }
+
+.csv-container{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
