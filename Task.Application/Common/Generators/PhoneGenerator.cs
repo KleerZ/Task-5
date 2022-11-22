@@ -12,7 +12,7 @@ public class PhoneGenerator
         _faker = faker;
     }
 
-    public string Generate(string country, int seed)
+    public string Generate(string country)
     {
         var phoneCode = new PhoneCodes().GetPhoneCode(country);
         var phone = _faker.Phone.PhoneNumber();
