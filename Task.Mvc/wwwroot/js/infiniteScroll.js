@@ -57,7 +57,7 @@ async function checkPosition() {
     const height = tableBody.offsetHeight
     const screenHeight = tableContainer.offsetHeight
     const scrolled = tableContainer.scrollTop
-    const threshold = height - screenHeight / 2
+    const threshold = height - height * 0.2
     const position = scrolled + screenHeight
 
     if (position >= threshold && loadCounter !== counter) {
