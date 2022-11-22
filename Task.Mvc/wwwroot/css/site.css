@@ -13,6 +13,31 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+.control-div{
+  display: flex;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.control{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-right: 30px;
+}
+
+#tableContainer{
+  max-height: 530px;
+}
+
+.people-table-head{
+  position: sticky;
+  top: 0;
+}
+
+.csv-container{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
